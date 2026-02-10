@@ -110,6 +110,8 @@ function PizzaMenues() {
                     {supplement.gratuit
                       ? "GRATUIT"
                       : `${Number(supplement.prix).toFixed(2)}€`}
+                      
+                    
                   </span>
                 </div>
               ))}

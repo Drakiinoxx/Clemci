@@ -16,6 +16,62 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `boissons`
+--
+
+DROP TABLE IF EXISTS `boissons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `boissons` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) NOT NULL,
+  `prix_33cl` decimal(5,2) DEFAULT NULL,
+  `prix_25cl` decimal(5,2) DEFAULT NULL,
+  `prix_50cl` decimal(5,2) DEFAULT NULL,
+  `prix_100cl` decimal(5,2) DEFAULT NULL,
+  `categorie_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `categorie_id` (`categorie_id`),
+  CONSTRAINT `boissons_ibfk_1` FOREIGN KEY (`categorie_id`) REFERENCES `categories_boissons` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `boissons`
+--
+
+LOCK TABLES `boissons` WRITE;
+/*!40000 ALTER TABLE `boissons` DISABLE KEYS */;
+INSERT INTO `boissons` VALUES (1,'Espresso',1.50,NULL,NULL,NULL,1),(2,'Double Espresso',3.00,NULL,NULL,NULL,1),(3,'Café + Lait',2.00,NULL,NULL,NULL,1),(4,'Déca',2.00,NULL,NULL,NULL,1),(5,'Double Déca',4.00,NULL,NULL,NULL,1),(6,'Déca + Lait',2.50,NULL,NULL,NULL,1),(7,'Thé / Infusion',2.00,NULL,NULL,NULL,1),(8,'Coca-Cola / Zéro',2.50,NULL,NULL,NULL,2),(9,'Oasis',2.50,NULL,NULL,NULL,2),(10,'Schwepps',3.00,NULL,NULL,NULL,2),(11,'Orangina',3.00,NULL,NULL,NULL,2),(12,'IceT',2.50,NULL,NULL,NULL,2),(13,'Limonade',1.50,NULL,NULL,NULL,2),(14,'Diabolo',2.50,NULL,NULL,NULL,2),(15,'Jus de Fruits',2.50,NULL,NULL,NULL,2),(16,'Sirop',1.00,NULL,NULL,NULL,2),(17,'Perrier 33cl',2.50,NULL,NULL,NULL,3),(18,'Evian / Badoit 50cl',NULL,NULL,4.50,NULL,3),(19,'Evian / Badoit 100cl',NULL,NULL,NULL,6.00,3),(20,'Ricard / Pastis',2.00,NULL,NULL,NULL,4),(21,'Martini Blanc / Rouge',2.50,NULL,NULL,NULL,4),(22,'Suze',2.50,NULL,NULL,NULL,4),(23,'Porto Blanc / Rouge',3.00,NULL,NULL,NULL,4),(24,'Kir',2.00,NULL,NULL,NULL,4),(25,'Kir royal pétillant',5.00,NULL,NULL,NULL,4),(26,'Coupe de pétillant',4.00,NULL,NULL,NULL,4),(27,'Muscat',2.00,NULL,NULL,NULL,4),(28,'Gin Gibson',2.50,NULL,NULL,NULL,4),(29,'Vodka Absolut',4.00,NULL,NULL,NULL,4),(30,'Tequila Sanjose',3.50,NULL,NULL,NULL,4),(31,'Jack Daniel Old',5.50,NULL,NULL,NULL,4),(32,'Ballantine\'s',4.00,NULL,NULL,NULL,4),(33,'Bacardi Blanc / Oro',4.00,NULL,NULL,NULL,4),(34,'Mount Gay Eclipse',4.50,NULL,NULL,NULL,4),(35,'Get 27 / 31',3.50,NULL,NULL,NULL,4),(36,'Limoncello Di Capri',4.50,NULL,NULL,NULL,4),(37,'Verveine Verte',5.00,NULL,NULL,NULL,4),(38,'Cognac ABK6 VS',5.00,NULL,NULL,NULL,4),(39,'Paulaner Blonde',NULL,3.50,6.50,NULL,5),(40,'Paulaner Ambrée',NULL,5.00,9.00,NULL,5),(41,'Ti-Picon',NULL,4.50,7.00,NULL,5);
+/*!40000 ALTER TABLE `boissons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories_boissons`
+--
+
+DROP TABLE IF EXISTS `categories_boissons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories_boissons` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) NOT NULL,
+  `ordre` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories_boissons`
+--
+
+LOCK TABLES `categories_boissons` WRITE;
+/*!40000 ALTER TABLE `categories_boissons` DISABLE KEYS */;
+INSERT INTO `categories_boissons` VALUES (1,'Boissons Chaudes',1),(2,'Boissons Froides',2),(3,'Eaux',3),(4,'Apéritifs / Digestifs',4),(5,'Bières Pressions',5);
+/*!40000 ALTER TABLE `categories_boissons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ingredients`
 --
 
@@ -126,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-10 11:34:02
+-- Dump completed on 2026-02-10 18:18:17

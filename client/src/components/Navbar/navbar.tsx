@@ -6,11 +6,13 @@ function Navbar() {
   return (
     <header className="bg-black border-b border-yellow-600/30 shadow-lg shadow-yellow-600/20">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <img
-          src="/ClemciLogo.jpeg"
-          alt="Clemci Logo"
-          className="h-16 w-16 rounded-full shadow-lg shadow-yellow-600/50"
-        />
+        <Link to="/">
+          <img
+            src="/ClemciLogo.jpeg"
+            alt="Clemci Logo"
+            className="h-16 w-16 rounded-full shadow-lg shadow-yellow-600/50 cursor-pointer hover:scale-110 hover:shadow-yellow-500/70 transition-all duration-300"
+          />
+        </Link>
 
         <ul className="flex items-center gap-6 md:gap-8">
           <Link
@@ -19,9 +21,12 @@ function Navbar() {
           >
             Nos pizzas
           </Link>
-          <li className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold">
+          <Link
+            to="/boissons"
+            className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold"
+          >
             Nos boissons
-          </li>
+          </Link>
           <li className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold">
             Nos événements
           </li>

@@ -1,25 +1,33 @@
-// Get variables from .env file for database connection
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+// Get database URL from .env file
+const { DATABASE_URL } = process.env;
 
-// Create a connection pool to the database
-import mysql from "mysql2/promise";
+// Create a connection pool to PostgreSQL
+import { Pool } from "pg";
 
-const client = mysql.createPool({
-  host: DB_HOST,
-  port: Number.parseInt(DB_PORT as string),
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
+const client = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Nécessaire pour Supabase
+  },
+});
+
+// Test de connexion
+client.on("connect", () => {
+  console.info("Connected to PostgreSQL database");
+});
+
+client.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
 });
 
 // Ready to export
 export default client;
 
 // Types export
-import type { Pool, ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import type { Pool as PgPool, QueryResult, QueryResultRow } from "pg";
 
-type DatabaseClient = Pool;
-type Result = ResultSetHeader;
-type Rows = RowDataPacket[];
+type DatabaseClient = PgPool;
+type Result = QueryResult;
+type Rows = QueryResultRow[];
 
 export type { DatabaseClient, Result, Rows };

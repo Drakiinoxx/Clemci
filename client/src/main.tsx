@@ -9,6 +9,12 @@ import "./index.css";
 // Import the main app component
 import App from "./App";
 import PizzaMenues from "./components/PizzasMenues/PizzaMenues";
+import BoissonsMenu from "./components/BoissonsMenu/BoissonMenu";
+import AdminLogin from "./components/admin/AdminLogin";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminIngredients from "./components/admin/AdminIngredients";
+import AdminSupplements from "./components/admin/AdminSupplements";
+import AdminPizzas from "./components/admin/AdminPizzas";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -29,7 +35,21 @@ const router = createBrowserRouter([
     path: "/nospizzas",
     element: <PizzaMenues />,
   },
-  // Try adding a new route! For example, "/about" with an About component
+  {
+    path: "/boissons",
+    element: <BoissonsMenu />,
+  },
+  {
+    path: "/jaimelepoulet",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/jaimelepoulet/dashboard",
+    element: <AdminDashboard />,
+  },
+  { path: "/jaimelepoulet/ingredients", element: <AdminIngredients /> },
+  { path: "/jaimelepoulet/supplements", element: <AdminSupplements /> },
+  { path: "/jaimelepoulet/pizzas", element: <AdminPizzas /> },
 ]);
 
 /* ************************************************************************* */

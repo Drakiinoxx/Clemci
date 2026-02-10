@@ -164,6 +164,80 @@ const destroySupplement: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+// ========== CATÉGORIES BOISSONS ==========
+const browseCategoriesBoissons: RequestHandler = async (req, res, next) => {
+  try {
+    const categories = await AdminRepository.readAllCategoriesBoissons();
+    res.json(categories);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ========== BOISSONS ==========
+const browseBoissons: RequestHandler = async (req, res, next) => {
+  try {
+    const boissons = await AdminRepository.readAllBoissons();
+    res.json(boissons);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const browseBoissonsByCategorie: RequestHandler = async (req, res, next) => {
+  try {
+    const categorieId = Number(req.params.categorieId);
+    const boissons = await AdminRepository.readBoissonsByCategorie(categorieId);
+    res.json(boissons);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const readBoisson: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const boisson = await AdminRepository.readBoissonById(id);
+
+    if (!boisson) {
+      res.status(404).json({ error: "Boisson not found" });
+      return;
+    }
+
+    res.json(boisson);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const addBoisson: RequestHandler = async (req, res, next) => {
+  try {
+    const newBoisson = await AdminRepository.createBoisson(req.body);
+    res.status(201).json(newBoisson);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const editBoisson: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    await AdminRepository.updateBoisson(id, req.body);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroyBoisson: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    await AdminRepository.deleteBoisson(id);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
 
 export default {
   // Ingredients
@@ -186,4 +260,15 @@ export default {
   addSupplement,
   editSupplement,
   destroySupplement,
+
+  // Catégories Boissons
+  browseCategoriesBoissons,
+
+  // Boissons
+  browseBoissons,
+  browseBoissonsByCategorie,
+  readBoisson,
+  addBoisson,
+  editBoisson,
+  destroyBoisson,
 };
