@@ -90,6 +90,32 @@ LOCK TABLES `pizzas` WRITE;
 INSERT INTO `pizzas` VALUES (1,'MARGUITA',9.00),(2,'PIQUENTITI',11.00),(3,'IREINE',11.00),(4,'GILBERT MONTAGNARDE',14.00),(5,'PERMIERE',14.00),(6,'VEGELODIE',11.00),(7,'LOLITACHE',15.00),(8,'BURRATA',13.00),(9,'POPOTAGERE',9.50),(10,'LA M BURGER',15.00),(11,'FUMAX',15.00),(12,'MI\'CHEVRE/MI\'MIEL',12.00),(13,'MAESTRO',14.50),(14,'POULETTE',14.00),(15,'PAUPIETTE',14.00),(16,'MARINIERE',11.00),(17,'MAET\'MAELLE',9.00),(18,'PIZZA EPHEMERE',0.00);
 /*!40000 ALTER TABLE `pizzas` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `supplements`
+--
+
+DROP TABLE IF EXISTS `supplements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `supplements` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) NOT NULL,
+  `prix` decimal(5,2) NOT NULL,
+  `gratuit` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supplements`
+--
+
+LOCK TABLES `supplements` WRITE;
+/*!40000 ALTER TABLE `supplements` DISABLE KEYS */;
+INSERT INTO `supplements` VALUES (1,'Modification de la base (Tomate - Houmous - Crème)',0.00,1),(2,'Supplément légume',1.00,0),(3,'Supplément charcuterie',2.00,0),(4,'Supplément fromage',1.50,0),(5,'Supplément burrata',3.50,0);
+/*!40000 ALTER TABLE `supplements` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -100,4 +126,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-09 10:21:41
+-- Dump completed on 2026-02-10 11:34:02

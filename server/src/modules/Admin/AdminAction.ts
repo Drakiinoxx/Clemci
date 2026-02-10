@@ -1,5 +1,5 @@
-import type { RequestHandler } from 'express';
-import AdminRepository from './AdminRepository';
+import type { RequestHandler } from "express";
+import AdminRepository from "./AdminRepository";
 
 // ========== INGREDIENTS ==========
 const browseIngredients: RequestHandler = async (req, res, next) => {
@@ -15,12 +15,12 @@ const readIngredient: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const ingredient = await AdminRepository.readIngredientById(id);
-    
+
     if (!ingredient) {
-      res.status(404).json({ error: 'Ingredient not found' });
+      res.status(404).json({ error: "Ingredient not found" });
       return;
     }
-    
+
     res.json(ingredient);
   } catch (err) {
     next(err);
@@ -70,12 +70,12 @@ const readPizza: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const pizza = await AdminRepository.readPizzaById(id);
-    
+
     if (!pizza) {
-      res.status(404).json({ error: 'Pizza not found' });
+      res.status(404).json({ error: "Pizza not found" });
       return;
     }
-    
+
     res.json(pizza);
   } catch (err) {
     next(err);
@@ -111,6 +111,60 @@ const destroyPizza: RequestHandler = async (req, res, next) => {
   }
 };
 
+const browseSupplements: RequestHandler = async (req, res, next) => {
+  try {
+    const supplements = await AdminRepository.readAllSupplements();
+    res.json(supplements);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const readSupplement: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const supplement = await AdminRepository.readSupplementById(id);
+
+    if (!supplement) {
+      res.status(404).json({ error: "Supplement not found" });
+      return;
+    }
+
+    res.json(supplement);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const addSupplement: RequestHandler = async (req, res, next) => {
+  try {
+    const newSupplement = await AdminRepository.createSupplement(req.body);
+    res.status(201).json(newSupplement);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const editSupplement: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    await AdminRepository.updateSupplement(id, req.body);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroySupplement: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    await AdminRepository.deleteSupplement(id);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   // Ingredients
   browseIngredients,
@@ -118,11 +172,18 @@ export default {
   addIngredient,
   editIngredient,
   destroyIngredient,
-  
+
   // Pizzas
   browsePizzas,
   readPizza,
   addPizza,
   editPizza,
   destroyPizza,
+
+  // Supplements
+  browseSupplements,
+  readSupplement,
+  addSupplement,
+  editSupplement,
+  destroySupplement,
 };

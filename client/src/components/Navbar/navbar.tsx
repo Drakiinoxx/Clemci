@@ -1,4 +1,6 @@
 import { FaInstagram, FaFacebook } from "react-icons/fa";
+import { Link } from "react-router";
+import PizzaMenues from "../PizzasMenues/PizzaMenues";
 
 function Navbar() {
   return (
@@ -11,9 +13,12 @@ function Navbar() {
         />
 
         <ul className="flex items-center gap-6 md:gap-8">
-          <li className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold">
+          <Link
+            to="/nospizzas"
+            className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold"
+          >
             Nos pizzas
-          </li>
+          </Link>
           <li className="text-white hover:text-yellow-500 transition-colors duration-300 cursor-pointer text-lg font-semibold">
             Nos boissons
           </li>
