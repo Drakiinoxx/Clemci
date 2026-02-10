@@ -11,6 +11,13 @@ interface Pizza {
   prix: number;
 }
 
+interface Supplement {
+  id: number;
+  nom: string;
+  prix: number;
+  gratuit: boolean;
+}
+
 // ========== INGREDIENTS ==========
 const readAllIngredients = async (): Promise<Ingredient[]> => {
   const [rows] = await databaseClient.query("SELECT * FROM ingredients");
@@ -157,6 +164,46 @@ const deletePizza = async (id: number): Promise<void> => {
   await databaseClient.query("DELETE FROM pizzas WHERE id = ?", [id]);
 };
 
+// ========== SUPPLEMENTS ==========
+const readAllSupplements = async (): Promise<Supplement[]> => {
+  const [rows] = await databaseClient.query("SELECT * FROM supplements");
+  return rows as Supplement[];
+};
+
+const readSupplementById = async (id: number): Promise<Supplement | null> => {
+  const [rows] = await databaseClient.query(
+    "SELECT * FROM supplements WHERE id = ?",
+    [id],
+  );
+  const supplements = rows as Supplement[];
+  return supplements[0] || null;
+};
+
+const createSupplement = async (
+  supplement: Omit<Supplement, "id">,
+): Promise<Supplement> => {
+  const [result] = await databaseClient.query(
+    "INSERT INTO supplements (nom, prix, gratuit) VALUES (?, ?, ?)",
+    [supplement.nom, supplement.prix, supplement.gratuit],
+  );
+  const insertId = (result as any).insertId;
+  return { id: insertId, ...supplement };
+};
+
+const updateSupplement = async (
+  id: number,
+  supplement: Partial<Supplement>,
+): Promise<void> => {
+  await databaseClient.query(
+    "UPDATE supplements SET nom = COALESCE(?, nom), prix = COALESCE(?, prix), gratuit = COALESCE(?, gratuit) WHERE id = ?",
+    [supplement.nom, supplement.prix, supplement.gratuit, id],
+  );
+};
+
+const deleteSupplement = async (id: number): Promise<void> => {
+  await databaseClient.query("DELETE FROM supplements WHERE id = ?", [id]);
+};
+
 export default {
   // Ingredients
   readAllIngredients,
@@ -171,4 +218,11 @@ export default {
   createPizza,
   updatePizza,
   deletePizza,
+
+  // Supplements
+  readAllSupplements,
+  readSupplementById,
+  createSupplement,
+  updateSupplement,
+  deleteSupplement,
 };
